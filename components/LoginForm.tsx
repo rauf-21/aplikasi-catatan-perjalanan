@@ -26,7 +26,7 @@ const LoginForm: NextPage = () => {
         <button type='submit' className='my-5 btn btn-primary'>Masuk</button>
         <p className='my-5 text-center'>
           Belum punya akun? Silahkan daftar&nbsp;
-          <Link href='/register'>
+          <Link href='/registration'>
             <a className='font-bold underline hover:text-primary'>DISINI</a>
           </Link>
         </p>
