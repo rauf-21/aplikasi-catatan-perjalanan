@@ -19,9 +19,9 @@ const LoginForm: NextPage = () => {
           <br />
           <span className='mt-10 text-primary'>Aplikasi Catatan Perjalanan</span>
         </h1>
-        <label className='input-group'>
-          <span>NIK</span>
-          <input type='text' placeholder='Masukkan NIK kamu disini...' className='w-full input input-bordered' />
+        <label className='input-group input-group-vertical'>
+          <span className='py-2'>NIK</span>
+          <input type='number' placeholder='Masukkan NIK kamu disini...' className='w-full input input-bordered' required />
         </label>
         <button type='submit' className='my-5 btn btn-primary'>Masuk</button>
         <p className='my-5 text-center'>
