@@ -78,7 +78,7 @@ const RegistrationForm: NextPage = () => {
           nikErrors.length > 0 && <ul className='mb-4 list-disc pl-5'>
             {
               nikErrors.map((error, index) => (
-                <li className='text-error' key={index}>{error}</li>
+                <li className='text-error capitalize' key={index}>{error}</li>
               ))
             }
           </ul>
@@ -91,7 +91,7 @@ const RegistrationForm: NextPage = () => {
           nameErrors.length > 0 && <ul className='mb-4 list-disc pl-5'>
             {
               nameErrors.map((error, index) => (
-                <li className='text-error' key={index}>{error}</li>
+                <li className='text-error capitalize' key={index}>{error}</li>
               ))
             }
           </ul>
