@@ -4,7 +4,7 @@ import path from 'path'
 import type { User } from '../types/user'
 
 export const getUserDataPath = () => {
-  return path.join(process.cwd(), 'config.txt')
+  return path.join(process.cwd(), 'data', 'config.txt')
 }
 
 export const deserializeUserData = (rawUserData: string) => {
@@ -42,8 +42,32 @@ export const getUserByNik = (nik: string) => {
   return users.find((user) => user.nik === nik)
 }
 
-export const addUser = (user: User) => {
+/**
+ * Check whether user has already registered using the same nik.
+ * 
+ * Returns true if user has already registered.
+ */
+export const checkUser = (user: User) => {
   const users = getAllUsers()
+  const { nik } = user
+
+  return users.some((user) => user.nik === nik) 
+}
+
+export const addUser = (user: User) => {
+  const users = getAllUsers() 
+
+  if (checkUser(user)) {
+    return {
+      success: false,
+      message: 'nik sudah terdaftar! pakai nik lainnya atau login menggunakan nik yang sudah terdaftar'   
+    }
+  } 
 
   fs.writeFileSync(getUserDataPath(), serializeUserData([...users, user]))
+
+  return {
+    success: true,
+    message: 'Pendaftaran berhasil'
+  }
 }
