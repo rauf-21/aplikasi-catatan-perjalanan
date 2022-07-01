@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 import useNotificationStore from '../stores/notification-store'
+import useUserStore from '../stores/user-store'
 
 const LoginForm: NextPage = () => {
   const router = useRouter()
@@ -12,6 +13,7 @@ const LoginForm: NextPage = () => {
   const [nikErrors, setNikErrors] = useState<string[]>([])
 
   const showNotification = useNotificationStore((state) => state.showNotification)
+  const setCurrentUser = useUserStore((state) => state.setCurrentUser)
 
   const loginHandler: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
@@ -22,8 +24,6 @@ const LoginForm: NextPage = () => {
 
     const response = await fetch(`/api/user/${nik}`)
     const { success, errors, data } = await response.json()
-
-    console.log(data)
 
     if (!success) {
       showNotification('error', 'Login gagal!')
@@ -38,6 +38,8 @@ const LoginForm: NextPage = () => {
     }
 
     showNotification('success', 'Login berhasil')
+
+    setCurrentUser(data)
 
     router.push('/dashboard')
   }

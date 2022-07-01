@@ -16,10 +16,7 @@ const handler = (
       .json({
         success: false,
         errors: ['nik belum terdaftar! Masukkan ulang nik atau daftar terlebih dahulu'],
-        data: {
-          user,
-          nik
-        }
+        data: null
       })
     return
   }
@@ -28,7 +25,10 @@ const handler = (
     .status(200)
     .json({
       success: true,
-      errors: []
+      errors: [],
+      data: {
+        ...user
+      }
     })
   return
 }
