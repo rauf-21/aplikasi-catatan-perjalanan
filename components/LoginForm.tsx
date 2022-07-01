@@ -50,7 +50,7 @@ const LoginForm: NextPage = () => {
         <h1 className='w-full mb-10 text-4xl text-center font-bold'>
           <span>Selamat Datang di</span>
           <br />
-          <span className='mt-10 text-primary'>Aplikasi Catatan Perjalanan</span>
+          <span className='mt-10 text-primary'>PeduliDiri</span>
         </h1>
         <label className='input-group input-group-vertical'>
           <span className='py-2'>NIK</span>
