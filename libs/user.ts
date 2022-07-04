@@ -10,6 +10,10 @@ export const getUserDataPath = () => {
 export const deserializeUserData = (rawUserData: string) => {
   const rawUserDataPairs = rawUserData.split(',')
 
+  if (rawUserDataPairs[0] === '') {
+    return []
+  }
+
   return rawUserDataPairs.map((data) => {
     const [nik, name] = data.split(':')
     return {

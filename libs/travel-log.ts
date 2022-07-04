@@ -4,11 +4,15 @@ import fs from 'fs'
 import type { TravelLog } from '../types/travel-log'
 
 export const getTravelLogDataPath = () => {
-  return path.join(process.cwd(), 'data', 'config.txt')
+  return path.join(process.cwd(), 'data', 'travel-logs.txt')
 }
 
 export const deserializeTravelLogData = (rawTravelLogData: string) => {
   const rawTravelLogDataPairs = rawTravelLogData.split(',')
+
+  if (rawTravelLogDataPairs[0] === '') {
+    return []
+  }
 
   return rawTravelLogDataPairs.map((data) => {
     const [user_nik, date, time, location, bodyTemperature] = data.split(':')
@@ -45,13 +49,13 @@ export const getTravelLogsByNik = (nik: string) => {
   return travelLogs.filter((travelLog) => travelLog.user_nik === nik)
 }
 
-export const getFilteredTravelLogs = (date: string|null, time: string|null, location: string|null) => {
-  const travelLogs = getAllTravelLogs()
+export const getFilteredTravelLogs = (nik:string, date: string|null, time: string|null, location: string|null) => {
+  const travelLogs = getTravelLogsByNik(nik)
 
   return travelLogs.filter((travelLog) => (
-    (date !== null ? travelLog.date === date : true)
-    && (time !== null ? travelLog.time === time : true)
-    && (location !== null ? travelLog.location === location : true)
+    (date ? travelLog.date === date : true)
+    && (time ? travelLog.time === time : true)
+    && (location ? travelLog.location.trim().toLowerCase().includes(location.trim().toLowerCase())  : true)
   ))
 }
 
@@ -59,9 +63,4 @@ export const addTravelLog = (travelLog: TravelLog) => {
   const travelLogs = getAllTravelLogs() 
 
   fs.writeFileSync(getTravelLogDataPath(), serializeTravelLogData([...travelLogs, travelLog]))
-
-  return {
-    success: true,
-    message: 'Log perjalanan berhasil ditambahkan!'
-  }
 }
