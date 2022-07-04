@@ -23,7 +23,7 @@ const LoginForm: NextPage = () => {
     setNikErrors([])
 
     try {
-      const response = await fetch(`/api/userc/${nik}`)
+      const response = await fetch(`/api/user/${nik}`)
       const { success, errors, data } = await response.json()
 
       if (!success) {
