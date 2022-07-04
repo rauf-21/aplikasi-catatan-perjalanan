@@ -10,21 +10,21 @@ const NavigationBar: NextPage = () => {
       <div className='flex-1'>
         <a className='btn btn-ghost normal-case text-xl'>PeduliDiri</a>
       </div>
-      <div className='flex-none'>
+      <div className='flex-none pr-3'>
         <ul className='menu menu-horizontal p-0 gap-2'>
           <li>
             <Link href='/dashboard'>
-              <a className={`${pathname.includes('dashboard') ? 'bg-primary text-white' : ''}`}>Dashboard</a>
+              <a className={`${pathname.includes('dashboard') ? 'bg-primary text-white' : ''}`}>Dasbor</a>
             </Link>
           </li>
           <li>
             <Link href='/travel-logs'>
-              <a className={`${pathname.includes('travel-logs') ? 'bg-primary text-white' : ''}`}>Travel Logs</a>
+              <a className={`${pathname.includes('travel-logs') ? 'bg-primary text-white' : ''}`}>Catatan Perjalanan</a>
             </Link>
           </li>
           <li>
             <Link href='/add-log'>
-              <a className={`${pathname.includes('add-log') ? 'bg-primary text-white' : ''}`}>Add Log</a>
+              <a className={`${pathname.includes('add-log') ? 'bg-primary text-white' : ''}`}>Tambah Catatan</a>
             </Link>
           </li>
         </ul>
