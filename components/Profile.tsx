@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 import type { User } from '../types/user'
 import useUserStore from '../stores/user-store'
@@ -14,16 +13,26 @@ const Profile: NextPage = () => {
     nik: '',
     name: ''
   })
+  const userNameInitials = useMemo(() => {
+    const initials = user.name
+      .trim()
+      .split(' ')
+      .map((n) => n.charAt(0).toUpperCase())
+      .join('')
+
+    console.log(initials)
+
+    return initials
+  }, [user])
 
   useEffect(() => {
-    const user = getCurrentUser()
+    const savedUser = getCurrentUser()
 
-    if (!user) {
-      return
+    if (savedUser !== null) {
+      setUser(savedUser)
     }
 
-    setUser({ ...user })
-  })
+  }, [getCurrentUser])
 
   const logoutHandler = () => {
     removeUser()
@@ -31,11 +40,11 @@ const Profile: NextPage = () => {
   }
 
   return (
-    <div className='w-1/4 min-h-full py-5 px-10 flex flex-col gap-5 items-center bg-base-200 rounded'>
+    <div className='w-1/4 h-fit py-5 px-10 sticky top-5 flex flex-col gap-5 items-center bg-base-200 rounded'>
       <h1 className='text-2xl font-bold'>Profil</h1>
-      <div className='avatar'>
-        <div className='w-36 rounded-lg'>
-          <Image src='https://placeimg.com/256/256/people' width={256} height={256} />
+      <div className='avatar placeholder'>
+        <div className="bg-neutral-focus text-neutral-content rounded-full w-24">
+          <span className="text-3xl">{userNameInitials}</span>
         </div>
       </div>
       <p className='font-bold capitalize break-all'>{user.name}</p>
