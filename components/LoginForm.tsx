@@ -22,26 +22,32 @@ const LoginForm: NextPage = () => {
 
     setNikErrors([])
 
-    const response = await fetch(`/api/user/${nik}`)
-    const { success, errors, data } = await response.json()
+    try {
+      const response = await fetch(`/api/userc/${nik}`)
+      const { success, errors, data } = await response.json()
 
-    if (!success) {
-      showNotification('error', 'Login gagal!')
+      if (!success) {
+        showNotification('error', 'Login gagal!')
 
-      errors.forEach((error: string) => {
-        if (error.includes('nik')) {
-          setNikErrors(value => [...value, error])
-        }
-      })
+        errors.forEach((error: string) => {
+          if (error.includes('nik')) {
+            setNikErrors(value => [...value, error])
+          }
+        })
 
-      return
+        return
+      }
+
+      showNotification('success', 'Login berhasil')
+
+      setCurrentUser(data)
+
+      router.push('/dashboard')
+    }
+    catch (err) {
+      showNotification('error', 'Gagal menghubungkan ke server!')
     }
 
-    showNotification('success', 'Login berhasil')
-
-    setCurrentUser(data)
-
-    router.push('/dashboard')
   }
 
   return (
