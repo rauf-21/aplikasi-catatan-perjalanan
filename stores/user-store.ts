@@ -40,9 +40,7 @@ const useUserStore = create<UserStore>((set, get) => ({
     }
 
     get().saveUser(user)
-
-    console.log(user)
-
+    
     return set(() => ({
       ...user
     }))
